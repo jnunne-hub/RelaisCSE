@@ -24,7 +24,7 @@
     <img src="img/LogoRelaisCSE3.png" alt="Logo RelaisCSE" class="login-logo">
     <h1 class="login-title">Bienvenue sur Le Relais du CSE</h1>
     <p class="login-subtitle">Seconde Main, Premier Lien</p>
-    <button id="google-signin-button" class="btn-login-google">
+    <button id="google-signin-button-login" class="btn-login-google">
       <i class="fab fa-google"></i> Connexion avec Google
     </button>
     <p id="login-error" class="login-error" style="display:none;"></p>
@@ -59,7 +59,7 @@
             </ul>
             <!-- Conteneur pour la connexion/déconnexion dynamique -->
             <div id="auth-container">
-                <button id="google-signin-button" class="btn btn-primary">Connexion avec Google</button>
+                <button id="google-signin-button-header" class="btn btn-primary">Connexion avec Google</button>
                 <!-- Ou les infos utilisateur si connecté -->
             </div>
         </nav>
@@ -183,10 +183,10 @@
             <label for="relais-image">Image (JPEG, PNG, GIF) *</label>
 <input type="file" id="relais-image" name="image" accept="image/jpeg, image/png, image/gif" required multiple>
 <small>Jusqu’à 3 images. L’ordre compte, la première sera la principale.</small>
-<div id="image-preview-container" style="margin-top: 10px; display: flex; gap: 8px;">
+ <div id="image-preview-container" style="margin-top: 10px; display: flex; gap: 8px;">
    <!-- miniatures JS -->
 </div>
-            <div id="image-preview-container" style="margin-top: 10px;">
+            <div id="image-preview-wrapper" style="margin-top: 10px;">
                  <img id="image-preview" src="#" alt="Aperçu de l'image" style="max-width: 200px; max-height: 200px; display: none;"/>
                  <span id="no-image-text">Aucune image sélectionnée</span>
             </div>
@@ -308,7 +308,6 @@
         </div>
     </div>
 </section>
-<button onclick="document.getElementById('edit-relais-modal').style.display='flex'">TEST MODALE EDIT</button>
 
     </main>
 
