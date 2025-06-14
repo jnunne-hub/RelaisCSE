@@ -99,9 +99,10 @@ main {
 }
 .login-screen {
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #eaf7f1, #f5fcfb);
   padding: 20px;
 }
@@ -856,6 +857,13 @@ nav a.nav-link.active, nav a.nav-link:hover, nav a.nav-link:focus { color: var(-
 footer { background-color: transparent; color: var(--text-color-medium); text-align: center; padding: 30px 0; margin-top: 40px; font-size: 0.85em; border-top: 1px solid var(--border-color); }
 footer p { display: inline-block; margin: 0; }
 footer::after { content: "\f1b8"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); margin-left: 15px; display: inline-block; font-size: 1em; }
+footer .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+footer .footer-links { display: flex; gap: 15px; }
+footer .footer-links a { color: var(--text-color-medium); text-decoration: none; font-size: 0.85em; }
+footer .footer-links a:hover { color: var(--primary-color); }
+footer .footer-social { display: flex; gap: 12px; }
+footer .footer-social a { color: var(--text-color-medium); font-size: 1.2em; }
+footer .footer-social a:hover { color: var(--primary-color); }
 
 /* ----------------------------------------
    14. Bouton Scroll To Top
