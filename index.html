@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <title>Le Relais d'Entreprise</title>
+    <link rel="icon" type="image/png" href="img/LogoRelaisCSE3.png">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Google Fonts (Quicksand & Lato) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+<body>
+<section id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <img src="img/LogoRelaisCSE3.png" alt="Logo RelaisCSE" class="login-logo">
+    <h1 class="login-title">Bienvenue sur Le Relais du CSE</h1>
+    <p class="login-subtitle">Seconde Main, Premier Lien</p>
+    <button id="google-signin-button" class="btn-login-google">
+      <i class="fab fa-google"></i> Connexion avec Google
+    </button>
+    <p id="login-error" class="login-error" style="display:none;"></p>
+  </div>
+</section>
+    <header>
+
+
+    <div class="container">
+
+        <!-- Bloc Titre et Slogan -->
+        <div>
+           <div class="logo-title-container">
+    <img src="img/LogoRelaisCSE1.png" alt="Le Relais du CSE" class="logo-img">
+
+</div>
+        </div>
+
+        <!-- Navigation et Authentification (Structure existante) -->
+        <nav>
+            <ul>
+                <!-- Liens de navigation (accueil, nouveau, messages, profil) -->
+                <li><a href="#" data-target="accueil" class="nav-link active"><i class="fas fa-home fa-fw"></i> Accueil</a></li>
+                <li><a href="#" data-target="nouveau" class="nav-link"><i class="fas fa-plus-circle fa-fw"></i> Nouveau Relais</a></li>
+<li>
+    <a href="#" data-target="messages" class="nav-link">
+        <i class="fas fa-comments fa-fw"></i> Messages
+        <span id="messages-badge" class="badge" style="display: none;"></span>
+    </a>
+</li>
+<li><a href="#" data-target="profil" class="nav-link"><i class="fas fa-user-circle fa-fw"></i> Profil</a></li>
+            </ul>
+            <!-- Conteneur pour la connexion/déconnexion dynamique -->
+            <div id="auth-container">
+                <button id="google-signin-button" class="btn btn-primary">Connexion avec Google</button>
+                <!-- Ou les infos utilisateur si connecté -->
+            </div>
+        </nav>
+
+    </div>
+</header>
+
+
+    <main class="container">
+        <!-- Vue Accueil -->
+        <section id="view-accueil" class="view-section active" aria-labelledby="accueil-title">
+             <!-- Titre pour la section Accueil (peut être visuellement caché) -->
+            <h2 id="accueil-title" class="visually-hidden">Accueil - Relais récents</h2>
+            <section id="filters-search" aria-labelledby="filters-title">
+                <h2 id="filters-title" class="visually-hidden">Filtres et Recherche</h2>
+                <div class="filters">
+                    <span>Catégorie :</span>
+                    <button class="btn btn-filter active" data-category="all">Tout</button>
+                    <button class="btn btn-filter" data-category="Vêtements">Vêtements</button>
+                    <button class="btn btn-filter" data-category="Chaussures">Chaussures</button>
+                    <button class="btn btn-filter" data-category="Jouets">Jouets</button>
+                    <button class="btn btn-filter" data-category="Maison">Maison</button>
+                    <button class="btn btn-filter" data-category="Livres">Livres</button>
+                    <button class="btn btn-filter" data-category="Animaux">Animaux</button>
+                    <button class="btn btn-filter" data-category="Divers">Divers</button>
+                </div>
+               
+                <div id="sub-filters-container" class="filters sub-filters" style="display: none; width: 100%; margin-top: 10px;">
+      <!--  <span>Sous-catégorie :</span> -->
+        <div id="sub-filter-buttons">
+            <!-- Boutons sous-catégories -->
+        </div>
+    </div>
+
+    <!-- NOUVEAU: Filtres Genre/Age -->
+    <div id="genre-age-filters-container" class="filters sub-filters" style="display: none; width: 100%; margin-top: 10px;">
+       <!-- <span>Pour :</span> -->
+        <div id="genre-age-filter-buttons">
+            <!-- Boutons Homme/Femme/Enfant -->
+        </div>
+    </div>
+    <!-- FIN NOUVEAU -->
+
+               
+                <div class="search">
+                   <input type="search" id="search-input" placeholder="Rechercher un objet...">
+                   <!--<button id="search-button" class="btn">Chercher</button>-->
+                </div>
+            </section>
+
+
+            <section id="relais-grid" aria-labelledby="relais-title">
+                <h2 id="relais-title">Relais récents</h2>
+                <div class="grid-container">
+                    <!-- Message de chargement initial -->
+                    <p id="loading-message">Chargement des relais...</p>
+                    <!-- Les cartes de relais seront injectées ici par JavaScript -->
+                </div>
+            </section>
+        </section>
+
+        <!-- Vue Nouveau Relais (Placeholder) -->
+        <section id="view-nouveau" class="view-section" aria-labelledby="nouveau-title">
+        <h2 id="nouveau-title">Proposer un nouveau Relais</h2>
+        <form id="form-nouveau-relais" class="relais-form">
+        <div class="form-group">
+            <label for="relais-titre">Titre du relais *</label>
+            <input type="text" id="relais-titre" name="titre" required maxlength="100">
+            <small>Décrivez brièvement l'objet (max 100 caractères).</small>
+        </div>
+
+        <div class="form-group">
+            <label for="relais-description">Description *</label>
+            <textarea id="relais-description" name="description" rows="5" required maxlength="1000"></textarea>
+             <small>Donnez plus de détails (état, raison du relais...) (max 1000 caractères).</small>
+        </div>
+
+        <!-- Ligne pour Catégorie et Sous-Catégorie -->
+        <div class="form-group form-group-inline">
+            <!-- Catégorie Principale -->
+            <div>
+                <label for="relais-categorie">Catégorie *</label>
+                <select id="relais-categorie" name="categorie" required>
+                    <!-- Options générées par JS -->
+                </select>
+            </div>
+            <!-- Sous-Catégorie (dynamique) -->
+            <div id="sous-categorie-container" style="display: none;">
+                <label for="relais-sous-categorie">Sous-catégorie *</label>
+                <select id="relais-sous-categorie" name="sous_categorie" required>
+                    <!-- Options générées par JS -->
+                </select>
+            </div>
+            <!-- Genre/Age (dynamique) -->
+            <div id="genre-age-container" style="display: none;">
+                <label for="relais-genre-age">Pour *</label>
+                <select id="relais-genre-age" name="genre_age" required>
+                    <!-- Options générées par JS -->
+                </select>
+            </div>
+        </div>
+
+         <!-- Ligne pour Prix et État -->
+        <div class="form-group form-group-inline">
+             <!-- Prix -->
+            <div>
+                <label for="relais-prix">Prix (€) *</label>
+                <input type="number" id="relais-prix" name="prix" min="0" step="0.01" required placeholder="0 pour gratuit">
+            </div>
+             <!-- État de l'article -->
+            <div>
+                <label for="relais-etat">État *</label>
+                <select id="relais-etat" name="etat" required>
+                    <option value="">-- Choisir État --</option>
+                    
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="relais-image">Image (JPEG, PNG, GIF) *</label>
+<input type="file" id="relais-image" name="image" accept="image/jpeg, image/png, image/gif" required multiple>
+<small>Jusqu’à 3 images. L’ordre compte, la première sera la principale.</small>
+<div id="image-preview-container" style="margin-top: 10px; display: flex; gap: 8px;">
+   <!-- miniatures JS -->
+</div>
+            <div id="image-preview-container" style="margin-top: 10px;">
+                 <img id="image-preview" src="#" alt="Aperçu de l'image" style="max-width: 200px; max-height: 200px; display: none;"/>
+                 <span id="no-image-text">Aucune image sélectionnée</span>
+            </div>
+             <small>Une belle image augmente les chances de relais ! Limite de taille Imgur (env. 10MB).</small>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" id="submit-relais-button" class="btn btn-primary">Lancer le Relais</button>
+            <span id="submit-relais-status" style="margin-left: 15px;"></span>
+        </div>
+    </form>
+</section>
+
+        <!-- Vue Messages (Placeholder) -->
+        <section id="view-messages" class="view-section" aria-labelledby="messages-title">
+    <h2 id="messages-title">Messagerie</h2>
+
+    <div class="messagerie-container">
+        <!-- Colonne de gauche : Liste des conversations -->
+        <div id="conversations-list-container" class="conversations-list">
+            <h3>Conversations</h3>
+            <div id="conversations-loading" style="padding: 10px;">Chargement...</div>
+            <ul id="conversations-list-ul">
+                <!-- Les conversations seront injectées ici par JS -->
+                 <li class="conversation-item">
+                    <img src="https://via.placeholder.com/40" alt="Avatar">
+                    <div>
+                        <span class="conv-user-name">Nom Contact</span><br>
+                        <span class="conv-annonce-titre">Titre Annonce</span><br>
+                        <span class="conv-last-message">Dernier message ici...</span>
+                    </div>
+                 </li>
+                
+            </ul>
+             <p id="no-conversations" style="display: none; padding: 10px; font-style: italic;">Aucune conversation.</p>
+        </div>
+
+        <!-- Colonne de droite : Chat actif -->
+        <div id="chat-container" class="chat-area">
+            <div id="chat-header">
+                
+                 <h3 id="chat-with-user">Sélectionnez une conversation</h3>
+                 <p id="chat-annonce-link" style="font-size: 0.9em;"></p> 
+            </div>
+
+            <div id="chat-messages" class="messages-display">
+               
+                 <p id="chat-select-prompt">Pour commencer, sélectionnez une conversation dans la liste de gauche ou contactez un relieur depuis une annonce.</p>
+                 <div id="chat-messages-loading" style="display: none;">Chargement des messages...</div>
+                 <div class="message message-sent">Mon message envoyé</div>
+                 <div class="message message-received">Message reçu de l'autre</div>
+            </div>
+
+            <form id="chat-form" class="message-input-area" style="display: none;"> 
+                <textarea id="chat-message-input" placeholder="Écrivez votre message..." rows="2" required></textarea>
+                <button type="submit" id="chat-send-button" class="btn btn-primary">Envoyer</button>
+            </form>
+             <div id="chat-error" style="color: red; display: none; padding: 5px;"></div>
+        </div>
+    </div>
+</section>
+
+        <!-- Vue Profil (Placeholder) -->
+        <section id="view-profil" class="view-section" aria-labelledby="profil-title">
+    <h2 id="profil-title">Mon Profil</h2>
+
+<!-- NOUVELLE SECTION : MES FAVORIS -->
+<section id="profil-favoris-section" class="card-style" aria-labelledby="favoris-title">
+    <h3 id="favoris-title">Mes Relais Favoris</h3>
+    <div id="profil-favoris-loading" style="display: none;">Chargement des favoris...</div>
+    <div id="profil-favoris-error" style="color: red; display: none;">Erreur chargement favoris.</div>
+    <div id="profil-favoris-grid" class="grid-container">
+        <!-- Les cartes des favoris seront injectées ici -->
+    </div>
+    <p id="profil-no-favoris" style="display: none; font-style: italic;">Vous n'avez aucun relais en favori pour le moment.</p>
+</section>
+<!-- FIN NOUVELLE SECTION -->
+
+    <div class="profil-container">
+        <!-- Section Informations Utilisateur -->
+        <div class="profil-info card-style"> 
+            <h3>Mes informations</h3>
+            <div id="profil-details-loading" style="display: none;">Chargement...</div>
+            <div id="profil-details-content">
+                <div class="profil-detail-item">
+                    <img id="profil-photo" src="https://via.placeholder.com/80?text=?" alt="Photo de profil" class="profil-avatar">
+                </div>
+                <div class="profil-detail-item">
+                    <strong>Nom :</strong> <span id="profil-nom">Non disponible</span>
+                </div>
+                <div class="profil-detail-item">
+                    <strong>Email :</strong> <span id="profil-email">Non disponible</span>
+                </div>
+                <div class="profil-detail-item">
+                    <strong>Service :</strong>
+                    <span id="profil-service-display">Non renseigné</span>
+                    
+                    <form id="profil-service-form" style="display: none; margin-top: 5px;">
+                        <input type="text" id="profil-service-input" placeholder="Votre service/département" required>
+                        <button type="submit" class="btn btn-sm">Enregistrer</button>
+                        <button type="button" id="profil-service-cancel" class="btn btn-sm btn-secondary">Annuler</button>
+                        <span id="profil-service-status" style="font-size:0.8em; margin-left:5px;"></span>
+                    </form>
+                    <button id="profil-edit-service-button" class="btn btn-sm btn-link">Modifier</button>
+                </div>
+            </div>
+             <div id="profil-details-error" style="color: red; display: none;">Erreur lors du chargement du profil.</div>
+        </div>
+
+        <!-- Section Mes Relais -->
+        <div class="profil-relais card-style">
+            <h3>Mes Relais Proposés</h3>
+            <div id="profil-relais-loading" style="display: none;">Chargement de vos relais...</div>
+            <div id="profil-relais-grid" class="grid-container">
+             
+            </div>
+            <div id="profil-relais-error" style="color: red; display: none;">Erreur lors du chargement de vos relais.</div>
+             <p id="profil-no-relais" style="display: none; font-style: italic;">Vous n'avez proposé aucun relais pour le moment.</p>
+        </div>
+    </div>
+</section>
+<button onclick="document.getElementById('edit-relais-modal').style.display='flex'">TEST MODALE EDIT</button>
+
+    </main>
+
+    <!-- ======================= Structure de la Modale ======================= -->
+<div id="relais-modal" class="modal-overlay" aria-modal="true" role="dialog" aria-labelledby="modal-title" style="display: none;">
+    <div class="modal-content">
+        <button id="modal-close-button" class="modal-close" aria-label="Fermer la fenêtre">×</button>
+
+        <div id="modal-loading" style="text-align: center; padding: 40px;">
+            <p>Chargement des détails du relais...</p>
+            <!-- Optionnel: Ajouter un spinner/indicateur CSS -->
+        </div>
+
+        <!-- CONTENU PRINCIPAL DE LA MODALE -->
+<div id="modal-details-content" class="modal-details-content">
+  <div class="modal-details-left">
+    <div id="modal-image-container"></div>
+  </div>
+  <div class="modal-details-right">
+    <h2 id="modal-title"></h2>
+    <p id="modal-price" class="modal-price"></p>
+    <div class="modal-meta">
+      <span id="modal-category"></span>
+      <span id="modal-sub-category" style="display:none;"> / <span id="modal-sub-category-value"></span></span>
+      <span id="modal-etat"></span>
+    </div>
+    <h3>Description</h3>
+    <p id="modal-description"></p>
+    <div id="modal-proposer-card" class="modal-proposer-card">
+      <div>
+        <div style="font-size:0.92em; color:#777;">Proposé par</div>
+        <img id="modal-user-photo" class="user-photo" src="..." alt="Photo">
+      </div>
+      <div style="flex:1">
+        <b id="modal-user-name"></b>
+        <div id="modal-user-service"></div>
+      </div>
+      <button id="modal-contact-button">Contacter le relieur</button>
+      <div id="modal-contact-status"></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== Fin Structure de la Modale ==================== -->
+<!-- ======================= Structure Modale d'Édition ======================= -->
+<div id="edit-relais-modal" class="modal-overlay" aria-modal="true" role="dialog" aria-labelledby="edit-modal-title-label" style="display: none;">
+    <div class="modal-content edit-modal-content">
+        <button id="edit-modal-close-button" class="modal-close" aria-label="Fermer la fenêtre">×</button>
+
+        <h2 id="edit-modal-title-label">Modifier le Relais</h2>
+
+        <div id="edit-modal-loading" style="display: none; text-align: center; padding: 40px;">Chargement...</div>
+        <div id="edit-modal-error" style="display: none; color: red; padding: 20px;">Erreur de chargement.</div>
+
+        <form id="edit-relais-form" class="relais-form" style="display: none;">
+           
+            <input type="hidden" id="edit-relais-id" name="relaisId">
+         
+             <input type="hidden" id="edit-original-image-url" name="originalImageUrl">
+
+            <div class="form-group">
+                <label for="edit-relais-titre">Titre *</label>
+                <input type="text" id="edit-relais-titre" name="titre" required maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="edit-relais-description">Description *</label>
+                <textarea id="edit-relais-description" name="description" rows="5" required maxlength="1000"></textarea>
+            </div>
+
+            <div class="form-group form-group-inline">
+    <div>
+        <label for="edit-relais-categorie">Catégorie *</label>
+        <select id="edit-relais-categorie" name="categorie" required>
+            <!-- Options -->
+        </select>
+    </div>
+     <div id="edit-sous-categorie-container" style="display: none;">
+        <label for="edit-relais-sous-categorie">Sous-catégorie *</label>
+        <select id="edit-relais-sous-categorie" name="sous_categorie" required>
+            <!-- Options -->
+        </select>
+    </div>
+    <!-- Genre/Age (dynamique pour Edit) -->
+    <div id="edit-genre-age-container" style="display: none;">
+        <label for="edit-relais-genre-age">Pour *</label>
+        <select id="edit-relais-genre-age" name="genre_age" required>
+            <!-- Options générées par JS -->
+        </select>
+    </div>
+</div>
+
+            <div class="form-group form-group-inline">
+                <div>
+                    <label for="edit-relais-prix">Prix (€) *</label>
+                    <input type="number" id="edit-relais-prix" name="prix" min="0" step="0.01" required>
+                </div>
+                <div>
+                    <label for="edit-relais-etat">État *</label>
+                    <select id="edit-relais-etat" name="etat" required>
+         
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Image actuelle</label>
+                <div id="edit-current-image-preview" style="margin-bottom: 10px;">
+                    <img id="edit-current-image" src="#" alt="Image actuelle" style="max-width: 150px; max-height: 150px; display: block; border: 1px solid #ccc;">
+                </div>
+                 <label for="edit-relais-image">Changer l'image (optionnel)</label>
+                <input type="file" id="edit-relais-image" name="image" accept="image/jpeg, image/png, image/gif">
+                 <div id="edit-new-image-preview-container" style="margin-top: 5px;">
+                     <img id="edit-new-image-preview" src="#" alt="Aperçu nouvelle image" style="max-width: 100px; max-height: 100px; display: none;"/>
+                     <span id="edit-no-new-image-text" style="font-size: 0.8em; color: #888;">Aucune nouvelle image sélectionnée.</span>
+                 </div>
+                <small>Laissez vide pour conserver l'image actuelle.</small>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" id="edit-submit-relais-button" class="btn btn-primary">Enregistrer les modifications</button>
+                <span id="edit-submit-relais-status" style="margin-left: 15px;"></span>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- ==================== Fin Modale d'Édition ==================== -->
+ <button id="scroll-to-top-btn" class="btn" title="Remonter en haut" aria-label="Remonter en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>   
+    <footer>
+        <div class="container">
+            <p>© 2025 CSE CRM59 - Le Relais d'Entreprise</p>
+        </div>
+    </footer>
+
+    <!-- SDKs et Config (déjà présents) -->
+<script src="js/firebase-config.js" type="module"></script>
+<script src="js/auth.js" type="module"></script>
+
+<!-- Nouveaux Modules Fonctionnels -->
+<script src="js/auth-ui.js" type="module"></script>
+<script src="js/relais-display.js" type="module"></script>
+<script src="js/relais-details-modal.js" type="module"></script>
+<script src="js/relais-form.js" type="module"></script>
+<script src="js/relais-edit-modal.js" type="module"></script>
+<script src="js/profile.js" type="module"></script>
+<script src="js/messages.js" type="module"></script>
+    
+<!-- Script Principal (Orchestrateur) -->
+<script src="js/app.js" type="module"></script>
+
+
+</body>
+</html>
