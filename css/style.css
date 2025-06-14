@@ -832,6 +832,13 @@ nav a.nav-link.active, nav a.nav-link:hover, nav a.nav-link:focus { color: var(-
 
 /* Statut pendant sauvegarde */
 .relais-form #submit-relais-status {
+footer .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+footer .footer-links { display: flex; gap: 15px; }
+footer .footer-links a { color: var(--text-color-medium); text-decoration: none; font-size: 0.85em; }
+footer .footer-links a:hover { color: var(--primary-color); }
+footer .footer-social { display: flex; gap: 12px; }
+footer .footer-social a { color: var(--text-color-medium); font-size: 1.2em; }
+footer .footer-social a:hover { color: var(--primary-color); }
     font-style: italic;
     color: var(--primary-color);
     font-size: 0.9em;
