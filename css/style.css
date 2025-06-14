@@ -1,0 +1,940 @@
+/* ==================================================
+   STYLE.CSS - Le Relais du CSE (v2.3 - Structuré & Commenté)
+   ================================================== */
+
+/* ----------------------------------------
+   1. Variables & Thème Global
+   ---------------------------------------- */
+:root {
+    /* Couleurs principales */
+    --primary-color: #4DB6AC; /* Teal - Principal pour actions, RSE */
+    --primary-color-dark: #3a9a90; /* Teal foncé pour hover/focus */
+    --primary-color-light: #e0f2f1; /* Teal très pâle pour fonds légers */
+    --primary-color-lighter: #b2dfdb;/* Teal pâle pour bordures légères */
+    --secondary-color: #FFAE8A; /* Corail doux pour accents */
+    --secondary-color-dark: #f89870; /* Corail foncé pour hover */
+
+    /* Fond & Texte */
+    --background-color: #FDFCFB; /* Blanc très légèrement chaud */
+    --card-background-color: #FFFFFF; /* Blanc pur pour cartes, modales, etc. */
+    --text-color: #333D47; /* Gris/Noir doux - Texte principal */
+    --text-color-medium: #6C7A89; /* Gris moyen - Texte secondaire, labels */
+    --text-color-light: #9DAAB6; /* Gris clair - Texte discret, placeholders */
+
+    /* Bordures & Ombres */
+    --border-color: #EEF1F4; /* Bordure très pâle (inputs, séparateurs fins) */
+    --divider-color: #E4E9ED; /* Séparateur un peu plus visible (sections) */
+    --shadow-soft: 0 3px 8px rgba(50, 50, 93, 0.05), 0 1px 3px rgba(0, 0, 0, 0.04); /* Ombre par défaut légère */
+    --shadow-medium: 0 6px 12px rgba(50, 50, 93, 0.08), 0 3px 7px rgba(0, 0, 0, 0.05); /* Ombre hover/active */
+
+    /* Typographie */
+    --font-primary: 'Quicksand', sans-serif; /* Pour titres, boutons */
+    --font-secondary: 'Lato', sans-serif; /* Pour corps de texte */
+
+    /* États & Tags */
+    --success-color: #2ECC71; /* Vert succès */
+    --info-color: #3498DB;    /* Bleu info */
+    --warning-color: #F39C12; /* Orange/Jaune avertissement */
+    --danger-color: #E74C3C; /* Rouge danger/alerte */
+    --success-color-light: #eafaf1; /* Fonds pâles pour tags/boutons état */
+    --info-color-light: #e1f5fe;
+    --warning-color-light: #fff8e1;
+    --danger-color-light: #fbe9e7;
+
+    /* Rayons de bordure */
+    --tag-border-radius: 4px;
+    --button-border-radius: 6px;
+    --card-border-radius: 10px;
+    --form-border-radius: 8px;
+}
+
+/* ----------------------------------------
+   2. Reset & Styles de Base
+   ---------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth; /* Défilement doux pour ancres/scroll-top */
+    font-size: 100%; /* Base 16px par défaut */
+}
+
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.65; /* Interligne confortable */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Assure que le footer reste en bas */
+    -webkit-font-smoothing: antialiased; /* Lissage polices Webkit/Blink */
+    -moz-osx-font-smoothing: grayscale; /* Lissage polices Firefox macOS */
+}
+
+main {
+    flex-grow: 1; /* Prend l'espace vertical disponible */
+    padding-top: 20px; /* Espace sous le header fixe */
+}
+.logo-title-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.logo-img {
+    /*height: 50px;*/
+    max-width: 300px;
+    object-fit: contain;
+}
+.title-block h1 {
+    margin: 0;
+    font-size: 1.6em;
+}
+.header-slogan {
+    margin: 2px 0 0;
+    font-size: 0.95em;
+    color: #666;
+}
+.login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #eaf7f1, #f5fcfb);
+  padding: 20px;
+}
+
+.login-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  padding: 40px 32px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.login-logo {
+  width: 80px;
+  margin-bottom: 18px;
+}
+
+.login-title {
+  font-size: 1.8em;
+  margin-bottom: 8px;
+  color: #2e3c3f;
+}
+
+.login-subtitle {
+  color: #666;
+  margin-bottom: 24px;
+  font-size: 1em;
+}
+
+.btn-login-google {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-login-google:hover {
+  background: #f2f2f2;
+}
+
+.login-error {
+  margin-top: 16px;
+  color: #c0392b;
+  font-size: 0.95em;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Styles typographiques généraux */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    font-weight: 700; /* Titres en gras */
+    color: var(--text-color); /* Couleur par défaut */
+    margin-bottom: 0.8em;
+    line-height: 1.3;
+}
+h1 { font-size: clamp(1.6em, 5vw, 2.0em); color: var(--primary-color); } /* Titre principal (logo) */
+h2 { font-size: 1.4em; border-bottom: 1px solid var(--divider-color); padding-bottom: 0.4em; margin-bottom: 1.2em; } /* Titres de section */
+h3 { font-size: 1.2em; } /* Titres de sous-section / carte */
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+a:hover, a:focus {
+    color: var(--primary-color-dark);
+    text-decoration: none; /* Assurer pas de soulignement non désiré */
+}
+
+img {
+    max-width: 100%;
+    height: auto; /* Maintient proportions */
+    display: block; /* Évite espaces sous image */
+}
+
+/* ----------------------------------------
+   3. Utilitaires & Conteneur Principal
+   ---------------------------------------- */
+.container {
+    max-width: 1280px; /* Largeur max contenu */
+    width: 92%; /* Marge sur les côtés */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 15px; /* Gouttières internes */
+    padding-right: 15px;
+}
+
+.visually-hidden { /* Masquer élément mais le garder pour lecteurs d'écran */
+    position: absolute !important; height: 1px; width: 1px;
+    overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;
+}
+
+/* Classe helper pour masquer texte mais garder icône (accessibilité) */
+.button-text-sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+
+/* ----------------------------------------
+   4. Styles des Boutons (Général & Variantes)
+   ---------------------------------------- */
+
+/* Style de base pour tous les boutons */
+.btn {
+    display: inline-flex; /* Pour aligner icône + texte */
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* Espace entre icône et texte */
+    padding: 9px 18px; /* Padding standard */
+    border: 1px solid var(--divider-color); /* Bordure par défaut légère */
+    border-radius: var(--button-border-radius);
+    font-family: var(--font-primary);
+    font-weight: 600; /* Semi-gras */
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    background-color: var(--card-background-color); /* Fond blanc */
+    color: var(--text-color-medium); /* Texte gris moyen */
+    font-size: 0.9rem;
+    line-height: 1.4;
+    box-shadow: var(--shadow-soft); /* Ombre douce */
+    white-space: nowrap; /* Empêche retour à la ligne */
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+    border-color: #CFD8DC; /* Bordure un peu plus visible */
+    color: var(--text-color);
+}
+.btn:active {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+}
+.btn:disabled, .btn:disabled:hover { /* Style bouton désactivé */
+    transform: none; box-shadow: none; background-color: #f5f7fa;
+    color: var(--text-color-light); border-color: var(--divider-color);
+    cursor: not-allowed; opacity: 0.8;
+}
+.btn i.fa-fw { /* Icône dans bouton avec texte */
+    width: 1.1em; /* Largeur standard */
+    margin-right: 6px; /* Espace avant texte */
+}
+
+/* Bouton Primaire (Actions principales, Envoi...) */
+.btn-primary {
+    background-color: var(--primary-color); color: white; border-color: var(--primary-color); font-weight: 700;
+}
+.btn-primary:hover { background-color: var(--primary-color-dark); border-color: var(--primary-color-dark); }
+.btn-primary:disabled, .btn-primary:disabled:hover { background-color: var(--primary-color) !important; border-color: var(--primary-color) !important; }
+
+/* Bouton Secondaire (Accents, Actions moins prioritaires) */
+.btn-secondary {
+    background-color: var(--secondary-color); color: white; border-color: var(--secondary-color); font-weight: 700;
+}
+.btn-secondary:hover { background-color: var(--secondary-color-dark); border-color: var(--secondary-color-dark); }
+.btn-secondary:disabled, .btn-secondary:disabled:hover { background-color: var(--secondary-color) !important; border-color: var(--secondary-color) !important; }
+
+/* Boutons de Filtre (Style Pill) */
+.btn-filter {
+    padding: 5px 12px; font-size: 0.8rem; border-radius: 15px; background-color: transparent;
+    border: 1px solid var(--divider-color); color: var(--text-color-medium); box-shadow: none; font-weight: 500;
+}
+.btn-filter.active, .btn-filter:hover, .btn-filter:focus { background-color: var(--primary-color); color: white; border-color: var(--primary-color); transform: none; box-shadow: none; }
+
+/* Boutons Small (Profil, Actions Carte - si texte visible) */
+.btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+/* Boutons Lien (Profil) */
+.btn-link { background: none; border: none; color: var(--primary-color); text-decoration: underline; cursor: pointer; padding: 0; font-size: 0.85em; margin-left: 8px; box-shadow: none; }
+.btn-link:hover { color: var(--primary-color-dark); text-decoration: none; transform: none; }
+
+/* ----------------------------------------
+   5. Header & Navigation
+   ---------------------------------------- */
+header {
+    background-color: var(--card-background-color); padding: 12px 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin-bottom: 25px;
+    position: sticky; top: 0; z-index: 100; /* Doit être inférieur aux modales */
+    border-bottom: 1px solid var(--border-color);
+}
+header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; /* Espace si wrap */ }
+
+/* Titre & Slogan */
+header .header-title-slogan { /* Conteneur pour H1 et P */
+     line-height: 1.2; /* Rapprocher lignes */
+}
+header h1 { margin: 0; font-size: clamp(1.6em, 4vw, 1.9em); color: var(--primary-color); font-weight: 700; display: inline-flex; align-items: center; gap: 8px; }
+header h1::before { content: "\f1b8"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.9em; color: var(--primary-color); }
+.header-slogan { font-size: 0.85em; font-weight: 400; color: var(--text-color-medium); margin: 0 0 0 calc(0.9em + 8px); /* Aligner sous texte H1 */ font-style: italic;}
+
+/* Navigation */
+nav { display: flex; align-items: center; flex-wrap: wrap; gap: 20px; /* Espace nav / auth */ }
+nav ul { list-style: none; display: flex; flex-wrap: wrap; margin: 0; padding: 0; align-items: center; gap: 8px; }
+nav li { margin: 0; }
+nav a.nav-link { font-family: var(--font-primary); font-weight: 500; padding: 8px 10px; border-bottom: 2px solid transparent; display: inline-flex; align-items: center; gap: 5px; font-size: 0.9rem; color: var(--text-color-medium); border-radius: 4px; transition: background-color 0.2s ease, color 0.2s ease; }
+nav a.nav-link i.fa-fw { width: 1.1em; margin: 0; }
+nav a.nav-link.active, nav a.nav-link:hover, nav a.nav-link:focus { color: var(--primary-color); background-color: var(--primary-color-light); font-weight: 600; border-bottom-color: transparent; }
+
+/* Bloc Authentification */
+#auth-container { display: flex; align-items: center; flex-shrink: 0; }
+#auth-container .user-info { display: flex; align-items: center; margin-right: 10px; }
+#auth-container .user-info img { width: 28px; height: 28px; border-radius: 50%; margin-right: 6px; border: 1px solid var(--border-color); }
+#auth-container .user-info span { font-size: 0.85rem; color: var(--text-color-medium); white-space: nowrap; }
+#auth-container .btn { padding: 7px 14px; font-size: 0.85rem; box-shadow: none; border-color: var(--divider-color); background-color: transparent; color: var(--text-color-medium); }
+#auth-container .btn:hover { border-color: var(--primary-color); color: var(--primary-color); background-color: var(--primary-color-light); transform: none; }
+
+
+/* ----------------------------------------
+   6. Filtres & Recherche (Accueil)
+   ---------------------------------------- */
+#filters-search { padding: 0; margin-bottom: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 15px 20px; border-bottom: none; }
+.filter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; } /* Groupe label + boutons */
+.filter-group > span { font-weight: 600; font-size: 0.9em; color: var(--text-color); margin-right: 4px; } /* Label */
+/* Conteneurs Sous-Filtres */
+.sub-filters { padding-top: 10px; margin-top: 10px; border-top: 1px dashed var(--border-color); width: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;}
+.sub-filters > span { font-weight: 600; font-size: 0.9em; color: var(--text-color); margin-right: 4px; }
+.sub-filters div { display: flex; flex-wrap: wrap; gap: 8px; } /* Conteneur des boutons */
+
+/* Recherche */
+#filters-search .search { display: flex; margin-left: auto; min-width: 240px; max-width: 320px; }
+#filters-search .search input[type="search"] { padding: 9px 14px; border: 1px solid var(--border-color); border-radius: 18px; flex-grow: 1; font-size: 0.9rem; box-shadow: none; background-color: var(--card-background-color); }
+#filters-search .search input[type="search"]:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.1); }
+#filters-search .search input[type="search"]::placeholder { color: var(--text-color-light); }
+
+/* ----------------------------------------
+   7. Grille des Relais
+   ---------------------------------------- */
+.grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); /* Ajuster largeur min carte */ gap: 25px; /* Espace entre cartes */ }
+@media (max-width: 500px) { .grid-container { grid-template-columns: 1fr; gap: 18px; } } /* 1 colonne sur très petit écran */
+/* Grilles spécifiques Profil (plus petites ?) */
+#profil-favoris-grid.grid-container,
+#profil-relais-grid.grid-container { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+
+/* Indicateur chargement Infinite Scroll */
+#loading-more-indicator { text-align: center; padding: 25px; display: none; /* Géré par JS */ }
+#loading-more-indicator i { font-size: 1.5em; color: var(--primary-color); }
+
+/* ----------------------------------------
+   8. Carte Relais
+   ---------------------------------------- */
+.relais-card { background-color: var(--card-background-color); border: none; border-radius: var(--card-border-radius); overflow: hidden; box-shadow: var(--shadow-soft); transition: all 0.25s ease; display: flex; flex-direction: column; }
+.relais-card:hover { box-shadow: var(--shadow-medium); transform: translateY(-5px); }
+.relais-card.is-relayed { /* Style carte relayée */ opacity: 0.65; pointer-events: none; cursor: default; }
+.relais-card.is-relayed .btn-voir-details { pointer-events: auto !important; cursor: pointer; opacity: 1; }
+
+/* Image Carte */
+.relais-card-image-container { position: relative; width: 100%; height: 165px; /* Hauteur image ajustée */ overflow: hidden; background-color: #f4f6f8; }
+.relais-card-image-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+.relais-card:hover .relais-card-image-container img { transform: scale(1.04); }
+
+/* Bouton Favori sur Image */
+.btn-overlay-favorite { position: absolute; top: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.85); color: var(--text-color-light); border: none; border-radius: 50%; width: 32px; height: 32px; padding: 0; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.2s ease; z-index: 1; }
+.btn-overlay-favorite:hover { background-color: rgba(255, 255, 255, 1); transform: scale(1.1); }
+.btn-overlay-favorite i { font-size: 0.9em; }
+.btn-overlay-favorite.is-favorited { color: var(--danger-color); background-color: rgba(255, 224, 230, 0.9); }
+.btn-overlay-favorite.is-favorited:hover { background-color: rgba(255, 224, 230, 1); }
+.btn-overlay-favorite:disabled i { animation: spin 1s linear infinite; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Contenu Texte Carte */
+.relais-card-content { padding: 12px 15px; /* Padding interne */ flex-grow: 1; display: flex; flex-direction: column; gap: 8px; /* Espace entre titre/prix/tags */ }
+
+/* Tags */
+.relais-card-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag {    display: inline-flex; /* Important pour aligner icône et texte */
+ font-size: 0.7rem; padding: 3px 8px; border-radius: var(--tag-border-radius); font-weight: 600; letter-spacing: 0.3px; line-height: 1.4; display: inline-flex; align-items: center; gap: 4px; }
+.tag-category { background-color: #F0F4F8; color: #607d8b; }
+.tag-condition { /* Fond/couleur dépendent de data-condition */ background-color: var(--warning-color-light); color: var(--warning-color); }
+.relais-card[data-condition="Très bon état"] .tag-condition, .relais-card[data-condition="Neuf avec étiquette"] .tag-condition { background-color: var(--success-color-light); color: var(--success-color); }
+.tag-genre { background-color: var(--info-color-light); color: var(--info-color); }
+.tag-status { font-style: italic; } /* Tag statut général */
+.tag-status-relayé { background-color: var(--text-color-light); color: #fff; }
+
+/* Titre & Prix Carte */
+.relais-card-title { font-size: 1em; font-weight: 600; color: var(--text-color); line-height: 1.35; margin-bottom: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; min-height: 2.8em; }
+.relais-card-price { font-weight: 700; color: var(--primary-color); font-size: 1.1em; margin-bottom: 0; }
+.relais-card-price.gratuit { color: var(--success-color); font-weight: 600; font-size: 1em; display: inline-flex; align-items: center; gap: 4px; }
+.relais-card-price.gratuit::before { content: "\f06c"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.9em; }
+
+/* Actions Carte (Icônes Seules) */
+.relais-card-actions { margin-top: auto; padding-top: 10px; display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--border-color); margin: 10px -15px -12px -15px; /* Compense padding parent */ padding: 8px 12px; background-color: #FAFBFC; }
+.relais-card-actions .btn-sm { padding: 0; width: 32px; height: 32px; font-size: 0; /* Cache texte */ line-height: 1; border-radius: 50%; background: none; border: 1px solid transparent; box-shadow: none; color: var(--text-color-medium); position: relative; }
+.relais-card-actions .btn-sm:hover { background-color: #eef1f4; color: var(--primary-color); transform: none; box-shadow: none; border-color: transparent; }
+.relais-card-actions .btn-delete-relais:hover { background-color: var(--danger-color-light); color: var(--danger-color); }
+.relais-card-actions .btn-edit-relais:hover { background-color: var(--warning-color-light); color: var(--warning-color); }
+.relais-card-actions .btn-mark-relayed { /* Bouton Marquer Relayé */ background-color: var(--success-color-light); color: var(--success-color); margin-left: auto; /* Le pousse après Voir */ }
+.relais-card-actions .btn-mark-relayed:hover { background-color: var(--success-color); color: white; }
+.relais-card-actions .btn-sm i.fa-fw { font-size: 0.95rem; margin: 0; line-height: 30px; width: 100%; text-align: center; }
+/* Compteur favoris dans actions (Profil) */
+.relais-card-actions .card-favorite-count { display: inline-flex; align-items: center; gap: 4px; font-size: 0.8rem; color: var(--danger-color); background-color: var(--danger-color-light); padding: 4px 8px; border-radius: var(--tag-border-radius); margin-left: auto; /* Pousse à droite */ font-weight: 600; }
+.relais-card-actions .card-favorite-count i.fa-heart { font-size: 0.9em; }
+
+/* REMPLACEZ LES 3 RÈGLES CI-DESSUS PAR CELLE-CI DANS style.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 40, 50, 0.75);
+  
+  /* C'est un conteneur flex pour centrer son enfant .modal-content */
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  
+  z-index: 9999;
+  padding: 20px;
+  overflow-y: auto;
+  
+  /* Transitions pour l'apparition/disparition */
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+/* On utilise le style en ligne pour cacher la modale */
+/* C'est plus simple et plus direct que la version avec [style*="..."] */
+.modal-overlay[style*="display: none"] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Empêche les clics quand c'est caché */
+}
+
+/*#edit-relais-modal {*/
+/*  border: 5px solid red !important;
+  background: #fff !important;
+  z-index: 99999 !important;
+  
+}*/
+
+.modal-content {
+  background-color: var(--card-background-color, #fff);
+  padding: 30px 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  position: relative;
+  max-width: 900px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+@media (min-width: 800px) {
+  .modal-details-content {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 38px;
+  }
+  .modal-details-left {
+    width: 260px;
+    min-width: 160px;
+    flex-shrink: 0;
+  }
+  .modal-details-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+}
+
+#modal-image-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 8px;
+    align-items: flex-start;
+}
+#modal-image-container img {
+    max-width: 240px;
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #0002;
+    cursor: pointer;
+    background: #fff;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+#modal-image-container img:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 24px #0003;
+}
+
+.modal-details-right > h2 {
+    margin-top: 0;
+    font-size: 2rem;
+    margin-bottom: 0.2em;
+}
+.modal-details-right > .modal-price {
+    color: #19b18c;
+    font-size: 1.3em;
+    margin: 0 0 0.4em 0;
+    font-weight: bold;
+}
+
+.modal-meta {
+    color: #222;
+    font-size: 1.07em;
+    margin-bottom: 12px;
+}
+.modal-details-right h3 {
+    margin-top: 16px;
+    margin-bottom: 7px;
+    font-size: 1.2em;
+}
+#modal-description {
+    margin-bottom: 16px;
+    color: #222;
+}
+
+.modal-proposer-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #0001;
+    padding: 18px 24px;
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 220px;
+    max-width: 100%;
+}
+.modal-proposer-card img.user-photo {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px #0001;
+}
+.modal-proposer-card b {
+    font-size: 1.07em;
+    display: block;
+}
+#modal-contact-button {
+    margin-left: auto;
+    min-width: 150px;
+    background: #c6e6df;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#modal-contact-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+#modal-contact-status {
+    font-size: 0.92em;
+    color: #808080;
+    margin-top: 2px;
+}
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: var(--text-color-light);
+  cursor: pointer;
+  line-height: 1;
+  padding: 5px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  border-radius: 50%;
+  z-index: 10;
+}
+.modal-close:hover, .modal-close:focus {
+  color: var(--danger-color);
+  transform: rotate(90deg);
+  background-color: #f8f9fa;
+}
+
+
+/* --- Modale Édition --- */
+#edit-relais-modal .modal-content { max-width: 720px;   z-index: 99999 !important;}
+#edit-modal-title-label { font-size: 1.6em; color: var(--text-color); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--divider-color); text-align: left; font-weight: 700; margin-top: 0; }
+#edit-relais-modal .relais-form { background: transparent; padding: 0; border: none; box-shadow: none; max-width: none; margin: 0; }
+#edit-relais-modal .relais-form .form-group { margin-bottom: 22px; }
+#edit-relais-modal .relais-form .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-family: var(--font-primary); color: var(--text-color); font-size: 0.95em; }
+#edit-relais-modal .relais-form .form-group input, #edit-relais-modal .relais-form .form-group textarea, #edit-relais-modal .relais-form .form-group select { width: 100%; padding: 10px 14px; border: 1px solid var(--divider-color); border-radius: var(--button-border-radius); font-family: var(--font-secondary); font-size: 0.95rem; background-color: #FDFEFE; transition: border-color 0.2s ease, box-shadow 0.2s ease; box-shadow: none; }
+#edit-relais-modal .relais-form .form-group input:focus, #edit-relais-modal .relais-form .form-group textarea:focus, #edit-relais-modal .relais-form .form-group select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.15); }
+#edit-relais-modal .relais-form .form-group textarea { resize: vertical; min-height: 100px; }
+#edit-relais-modal .relais-form .form-group input[type="file"] { display: block; font-size: 0.9rem; color: var(--background-color); padding: 0; background-color: var(--background-color); cursor: pointer; line-height: 1.5; position: relative; min-height: 44px; } /* Utilise style fichier simple */
+#edit-relais-modal .relais-form .form-group input[type="file"]::file-selector-button { /* Style bouton interne */ padding: 9px 18px; border: none; border-right: 1px solid var(--divider-color); border-radius: var(--button-border-radius) 0 0 var(--button-border-radius); margin: 0; background-color: var(--primary-color-light); color: var(--primary-color); font-family: var(--font-primary); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background-color 0.2s ease; height: calc(44px - 2px); vertical-align: middle;}
+#edit-relais-modal .relais-form .form-group input[type="file"]::file-selector-button:hover { background-color: var(--primary-color-lighter); }
+#edit-relais-modal .relais-form .form-group input[type="file"]:focus { border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.15); }
+#edit-relais-modal .relais-form .form-group small { display: block; font-size: 0.8rem; color: var(--text-color-medium); margin-top: 6px; }
+#edit-relais-modal .relais-form .form-group-inline { display: flex; flex-wrap: wrap; gap: 20px; }
+#edit-relais-modal .relais-form .form-group-inline > div { flex: 1; min-width: 160px; }
+#edit-relais-modal #edit-current-image-preview label { font-weight: 600; font-size: 0.95em; color: var(--text-color); margin-bottom: 8px; display: block; } #edit-relais-modal #edit-current-image-preview div { margin-bottom: 15px; margin-top: 5px; padding: 10px; border: 1px solid var(--border-color); display: inline-block; border-radius: 4px; } #edit-relais-modal #edit-current-image { max-width: 140px; max-height: 140px; display: block; border-radius: 4px; }
+#edit-relais-modal #edit-new-image-preview-container { border: 1px dashed var(--divider-color); padding: 15px; margin-top: 10px; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: var(--tag-border-radius); background-color: #fcfdfe; } #edit-relais-modal #edit-new-image-preview { max-width: 120px; max-height: 120px; border-radius: 4px; display: none; } #edit-relais-modal #edit-no-new-image-text { color: var(--text-color-light); font-style: italic; font-size: 0.9em; }
+#edit-relais-modal .relais-form .form-actions { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--divider-color); display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
+#edit-relais-modal #edit-submit-relais-status { font-style: italic; color: var(--primary-color); font-size: 0.9em; }
+
+/* ----------------------------------------
+   10. Vues & Transitions
+   ---------------------------------------- */
+.view-section { display: none; padding-top: 15px; /* Espace haut de vue */ }
+.view-section.active { display: block; animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ----------------------------------------
+   11. Styles Vue Profil
+   ---------------------------------------- */
+#profil-favoris-section { margin-bottom: 30px; } /* Espace entre sections profil */
+.profil-container { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 0; /* Géré par gap section favoris */ }
+@media (min-width: 992px) { .profil-container { grid-template-columns: 340px 1fr; gap: 35px; } }
+.card-style { /* Style commun sections profil */ background-color: var(--card-background-color); padding: 25px 30px; border-radius: var(--form-border-radius); box-shadow: var(--shadow-soft); border: 1px solid var(--border-color); }
+#profil-favoris-section h3, .profil-info h3, .profil-relais h3 { font-size: 1em; margin-top: 0; border-bottom: 1px solid var(--divider-color); padding-bottom: 12px; margin-bottom: 25px; }
+/* Messages état vide/erreur profil */
+#profil-favoris-loading, #profil-favoris-error, #profil-no-favoris,
+#profil-relais-loading, #profil-relais-error, #profil-no-relais { padding: 20px; text-align: center; color: var(--text-color-medium); font-style: italic; }
+#profil-favoris-error, #profil-relais-error { color: var(--danger-color); font-style: normal; font-weight: bold; }
+/* Infos User */
+.profil-detail-item { margin-bottom: 15px; line-height: 1.5; font-size: 0.95rem; } .profil-detail-item strong { color: var(--text-color); margin-right: 5px; } .profil-avatar { width: 75px; height: 75px; border-radius: 50%; border: 2px solid var(--border-color); display: block; margin-bottom: 15px; }
+#profil-service-form { margin-top: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; } #profil-service-form input[type="text"] { padding: 7px 10px; font-size: 0.9rem; flex-grow: 1; max-width: 240px; border-radius: 4px; border: 1px solid var(--divider-color); } #profil-service-status { font-size:0.8em; font-style: italic; }
+
+/* ========================================
+   STYLES FORMULAIRES (Général - pour Ajout & Édition)
+   Utilise la classe '.relais-form'
+   ======================================== */
+
+.relais-form { /* Style appliqué aux DEUX formulaires (new & edit) via la classe */
+    background-color: var(--card-background-color); /* Fond blanc */
+    padding: 30px 35px;        /* Padding interne généreux */
+    border-radius: var(--form-border-radius); /* Coins arrondis */
+    box-shadow: var(--shadow-soft); /* Ombre douce */
+    border: 1px solid var(--border-color); /* Bordure légère */
+    max-width: 700px;          /* Largeur max */
+    margin: 25px auto;         /* Centrage */
+}
+
+/* Espacement standard entre groupes de champs */
+.relais-form .form-group {
+    margin-bottom: 20px;
+}
+
+/* Style des labels */
+.relais-form .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    color: var(--text-color);
+    font-size: 0.95em; /* Taille label */
+}
+/* Label spécifique pour le groupe image (si besoin) */
+.relais-form .form-group label.file-label-header {
+     /* Styles spécifiques si différents des autres labels */
+     margin-bottom: 10px; /* Un peu plus d'espace avant le bouton */
+}
+
+
+/* Style commun pour la plupart des champs */
+.relais-form .form-group input[type="text"],
+.relais-form .form-group input[type="number"],
+.relais-form .form-group textarea,
+.relais-form .form-group select {
+    width: 100%;
+    padding: 10px 14px; /* Padding interne champs */
+    border: 1px solid var(--divider-color); /* Bordure standard */
+    border-radius: var(--button-border-radius); /* Arrondi cohérent */
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    background-color: #FDFEFE; /* Fond très légèrement différent */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: none;
+}
+/* Style au focus */
+.relais-form .form-group input[type="text"]:focus,
+.relais-form .form-group input[type="number"]:focus,
+.relais-form .form-group textarea:focus,
+.relais-form .form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.15); /* Halo */
+}
+
+/* Textarea spécifique */
+.relais-form .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* --- Style Input Fichier (Version CSS Seul Simplifiée) --- */
+/* Conteneur pour l'input fichier (si vous utilisez le wrapper HTML) */
+.relais-form .file-input-wrapper {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+}
+/* Input fichier lui-même (style bouton + champ) */
+.relais-form .form-group input[type="file"] {
+    display: block;
+    width: 100%;
+    font-family: var(--font-secondary);
+    font-size: 0.9rem;
+    color: var(--background-color); /* Masque texte natif */
+    padding: 0;
+    border: 1px solid var(--divider-color);
+    border-radius: var(--button-border-radius);
+    background-color: var(--background-color);
+    cursor: pointer;
+    line-height: 1.5;
+    position: relative;
+    min-height: 44px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* Important: S'assurer que ça ne cache pas le bouton interne */
+    overflow: hidden; /* Peut aider sur certains navigateurs */
+}
+/* Bouton interne */
+.relais-form .form-group input[type="file"]::file-selector-button,
+.relais-form .form-group input[type="file"]::-webkit-file-upload-button {
+    padding: 9px 18px; border: none; border-right: 1px solid var(--divider-color);
+    border-radius: var(--button-border-radius) 0 0 var(--button-border-radius); margin: 0;
+    background-color: var(--primary-color-light); color: var(--primary-color);
+    font-family: var(--font-primary); font-weight: 600; font-size: 0.9rem;
+    cursor: pointer; transition: background-color 0.2s ease;
+    height: calc(44px - 2px); vertical-align: middle;
+    /* Assurer que le bouton est visible */
+    display: inline-block; /* ou block */
+    position: relative; /* ou static */
+    z-index: 1; /* Pour être au-dessus du texte caché */
+}
+/* Hover bouton interne */
+.relais-form .form-group input[type="file"]::file-selector-button:hover,
+.relais-form .form-group input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: var(--primary-color-lighter);
+}
+/* Focus input global */
+.relais-form .form-group input[type="file"]:focus {
+    outline: none; border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.15);
+}
+/* --- Fin Style Input Fichier --- */
+
+
+/* Texte d'aide */
+.relais-form .form-group small {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-color-medium);
+    margin-top: 6px;
+}
+
+/* Champs sur la même ligne */
+.relais-form .form-group-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espace entre champs */
+}
+.relais-form .form-group-inline > div {
+    flex: 1;
+    min-width: 180px; /* Largeur min avant retour ligne */
+}
+
+/* Aperçu image (spécifique au formulaire d'ajout) */
+.relais-form #image-preview-container {
+    border: 1px dashed var(--divider-color);
+    padding: 15px; margin-top: 10px; min-height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; border-radius: var(--tag-border-radius);
+    background-color: #fcfdfe;
+}
+.relais-form #no-image-text {
+    color: #aaa; font-style: italic; font-size: 0.9em;
+}
+.relais-form #image-preview { /* L'image elle-même */
+    max-width: 200px; max-height: 200px; display: none; /* JS gère l'affichage */
+    border-radius: 4px;
+}
+
+
+/* Actions du formulaire (bouton Lancer) */
+.relais-form .form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--divider-color); /* Ligne avant bouton */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Bouton à droite */
+    gap: 15px;
+}
+/* Style spécifique pour le bouton submit (normalement hérité de .btn-primary) */
+#submit-relais-button {
+    /* Hérite de .btn et .btn-primary */
+}
+/* Style bouton désactivé */
+#submit-relais-button:disabled,
+#edit-submit-relais-button:disabled { /* Cible aussi bouton édition */
+    background-color: #cccccc !important; /* Plus visible */
+    border-color: #cccccc !important;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: var(--shadow-soft);
+}
+
+/* Statut pendant sauvegarde */
+.relais-form #submit-relais-status {
+    font-style: italic;
+    color: var(--primary-color);
+    font-size: 0.9em;
+}
+
+/* ----------------------------------------
+   12. Styles Vue Messagerie
+   ---------------------------------------- */
+.messagerie-container { display: flex; border: 1px solid var(--border-color); border-radius: var(--form-border-radius); overflow: hidden; background-color: var(--card-background-color); height: calc(80vh - 60px); min-height: 480px; box-shadow: var(--shadow-soft); }
+/* Colonne Gauche Conversations */
+.conversations-list { width: 30%; min-width: 240px; max-width: 330px; border-right: 1px solid var(--border-color); display: flex; flex-direction: column; background-color: #fcfdfe; }
+.conversations-list h3 { padding: 14px 18px; margin: 0; font-size: 1.15em; font-weight: 600; background-color: #f8f9fa; border-bottom: 1px solid var(--border-color); flex-shrink: 0; color: var(--text-color-medium); }
+#conversations-list-ul { list-style: none; padding: 0; margin: 0; overflow-y: auto; flex-grow: 1; }
+.conversation-item { display: flex; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--border-color); cursor: pointer; transition: background-color 0.15s ease-in-out; } .conversation-item:last-child { border-bottom: none; } .conversation-item:hover { background-color: #f0f4f8; } .conversation-item.active { background-color: var(--primary-color); color: white; } .conversation-item.active .conv-annonce-titre, .conversation-item.active .conv-last-message { color: rgba(255, 255, 255, 0.85); } .conversation-item.active .conv-user-name { color: white; } .conversation-item img { width: 40px; height: 40px; border-radius: 50%; margin-right: 12px; flex-shrink: 0; border: 1px solid var(--border-color); } .conversation-item div { overflow: hidden; } .conversation-item .conv-user-name { font-weight: 600; display: block; font-size: 0.95em; color: var(--text-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; } .conversation-item .conv-annonce-titre { font-size: 0.8em; color: var(--text-color-medium); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px; } .conversation-item .conv-last-message { font-size: 0.85em; color: var(--text-color-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+/* Colonne Droite Chat */
+.chat-area { flex-grow: 1; display: flex; flex-direction: column; background-color: var(--card-background-color); }
+#chat-header { padding: 12px 20px; border-bottom: 1px solid var(--border-color); background-color: #fdfdfe; flex-shrink: 0; } #chat-header h3 { margin: 0 0 4px 0; font-size: 1.1em; color: var(--text-color); } #chat-annonce-link { font-size: 0.85em; margin:0; color: var(--text-color-medium); } #chat-annonce-link a { text-decoration: underline; color: var(--primary-color); } #chat-annonce-link a:hover { color: var(--primary-color-dark); }
+.messages-display { flex-grow: 1; overflow-y: auto; padding: 25px 20px; display: flex; flex-direction: column; gap: 6px; } #chat-select-prompt { margin: auto; color: var(--text-color-light); font-style: italic; text-align: center; font-size: 0.95em; } .message-container { display: flex; align-items: flex-end; max-width: 85%; } .message-sent-container { justify-content: flex-end; margin-left: auto; flex-direction: row-reverse; } .message-received-container { justify-content: flex-start; margin-right: auto; flex-direction: row; } .message { max-width: none; margin-bottom: 0; word-wrap: break-word; padding: 9px 15px; border-radius: 20px; line-height: 1.45; font-size: 0.95rem; } .message-sent { background-color: var(--primary-color); color: white; border-bottom-right-radius: 6px; } .message-received { background-color: #EAEDF1; color: var(--text-color); border-bottom-left-radius: 6px; } .message-timestamp { font-size: 0.7em; color: var(--text-color-light); margin: 0 8px; white-space: nowrap; padding-bottom: 4px; }
+.message-input-area { display: flex; align-items: center; gap: 12px; padding: 15px 20px; border-top: 1px solid var(--border-color); background-color: #f8f9fa; flex-shrink: 0; } #chat-message-input { flex-grow: 1; resize: none; padding: 10px 18px; border: 1px solid var(--divider-color); border-radius: 22px; font-size: 0.95rem; min-height: 44px; max-height: 100px; background: white; transition: border-color 0.2s ease, box-shadow 0.2s ease; } #chat-message-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(77, 182, 172, 0.1); } #chat-send-button { flex-shrink: 0; padding: 9px 18px; }
+
+/* ----------------------------------------
+   13. Footer
+   ---------------------------------------- */
+footer { background-color: transparent; color: var(--text-color-medium); text-align: center; padding: 30px 0; margin-top: 40px; font-size: 0.85em; border-top: 1px solid var(--border-color); }
+footer p { display: inline-block; margin: 0; }
+footer::after { content: "\f1b8"; font-family: "Font Awesome 6 Free"; font-weight: 900; color: var(--primary-color); margin-left: 15px; display: inline-block; font-size: 1em; }
+
+/* ----------------------------------------
+   14. Bouton Scroll To Top
+   ---------------------------------------- */
+#scroll-to-top-btn { position: fixed; bottom: 25px; right: 25px; z-index: 998; background-color: var(--primary-color); color: white; border: none; border-radius: 50%; width: 45px; height: 45px; font-size: 1.1em; display: inline-flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; box-shadow: var(--shadow-medium); opacity: 0; visibility: hidden; transform: translateY(20px); transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; }
+#scroll-to-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
+#scroll-to-top-btn:hover { background-color: var(--primary-color-dark); transform: translateY(-2px); }
+#scroll-to-top-btn i { margin: 0; }
+
+/* ----------------------------------------
+   15. Responsive
+   ---------------------------------------- */
+@media (max-width: 768px) {
+    /* Header */
+    header .container { flex-direction: column; align-items: flex-start; } header .header-title-slogan {margin-bottom: 10px;} .header-slogan { padding-left: 0; margin-left: 0; } nav { width: 100%; justify-content: space-between; gap: 10px; } #auth-container { margin-left: 0; margin-top: 10px; }
+    /* Filtres */
+    #filters-search { flex-direction: column; align-items: stretch; gap: 15px; } #filters-search .search { margin-left: 0; width: 100%; max-width: none; } .filter-group { flex-direction: column; align-items: flex-start; width: 100%; } .filter-group > span { margin-right: 0; margin-bottom: 5px; }
+    /* Grille */
+    .grid-container { gap: 18px; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+    #profil-favoris-grid.grid-container, #profil-relais-grid.grid-container { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    /* Messagerie */
+    .messagerie-container { flex-direction: column; height: calc(90vh - 40px); } .conversations-list { width: 100%; max-width: none; height: 40%; min-height: 180px; border-right: none; border-bottom: 1px solid var(--border-color); } .chat-area { height: 60%; }
+    /* Modals */
+    .modal-content { padding: 20px 20px; }
+#modal-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+@media (min-width: 700px) {
+    #modal-details-content {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 32px;
+    }
+}
+    .modal-left-column { width: 100% !important; max-width: none !important; }
+}
+
+@media (max-width: 480px) {
+    /* Nav très petit écran */
+    nav { gap: 5px; } nav ul { justify-content: space-between; gap: 4px; } nav a.nav-link { padding: 6px 4px; font-size: 0.8rem; } #auth-container .user-info span { display: none; } #auth-container .btn { padding: 6px 10px; }
+    /* Grille 1 colonne */
+    .grid-container { grid-template-columns: 1fr; gap: 15px; }
+    .relais-card-image-container { height: 190px; } /* Image + grande en 1 colonne */
+    /* Actions carte en colonne (texte réactivé) */
+    .relais-card-actions { flex-direction: column; align-items: stretch; gap: 5px; }
+    .relais-card-actions .btn-sm { width: 100%; text-align: center; margin-bottom: 5px; font-size: 0.9rem; padding: 8px; height: auto; border-radius: var(--button-border-radius); display: inline-flex; /* Pour icone+texte */ justify-content: center; border: 1px solid var(--divider-color) !important; /* Bordure visible */ }
+    .relais-card-actions .btn-sm i.fa-fw { margin: 0 5px 0 0; font-size: 0.9em; width: auto; } /* Ajuster icone */
+    .relais-card-actions .btn-sm:last-child { margin-bottom: 0; }
+    .relais-card-actions .card-favorite-count { width: 100%; text-align: center; margin-left: 0; justify-content: center;} /* Compteur pleine largeur */
+     /* Formulaires */
+    .relais-form { padding: 20px 15px; } .relais-form .form-group-inline { flex-direction: column; gap: 15px; } .relais-form .form-group-inline > div { min-width: 100%; }
+}
+
+/* DANS style.css (ajoutez à la fin) */
+.nav-link {
+    position: relative; /* Nécessaire pour positionner le badge */
+}
+
+.badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: var(--danger-color);
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.badge.hidden {
+    transform: scale(0);
+}
