@@ -147,10 +147,13 @@ function createRelaisCard(relaisData, targetContainer, favoritedIds) {
         targetContainer = fallbackGrid;
         console.warn(`createRelaisCard: Cible invalide, fallback sur grille accueil pour ${relaisData?.id}.`);
     }
+
     if (state.loadedIds.has(relaisData.id)) {
         console.warn(`Carte déjà chargée pour ${relaisData.id}, saut.`);
         return;
     }
+
+
     if (targetContainer.querySelector(`article[data-id="${relaisData.id}"]`)) {
         console.warn(`Carte déjà présente pour ${relaisData.id}, saut de création.`);
         return;
