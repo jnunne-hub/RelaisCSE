@@ -101,7 +101,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: calc(100vh - 120px);
   background: linear-gradient(135deg, #eaf7f1, #f5fcfb);
   padding: 20px;
 }
