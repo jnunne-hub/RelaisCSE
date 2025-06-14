@@ -35,7 +35,8 @@ const state = {
     lastVisibleDoc: null,
     itemsPerLoad: 12,
     noMoreItems: false,
-    currentFilters: {}
+    currentFilters: {},
+    loadedIds: new Set()
 };
 
 /**
@@ -67,6 +68,7 @@ async function loadRelais(filtreCategorie = null, filtreSousCategorie = null, fi
         relaisGridContainer.innerHTML = '';
         state.lastVisibleDoc = null;
         state.noMoreItems = false;
+        state.loadedIds.clear();
         state.currentFilters = { filtreCategorie, filtreSousCategorie, filtreGenreAge };
         if (loadingMoreIndicator) loadingMoreIndicator.style.display = 'none';
         console.log(`[Accueil] Chargement initial/reset - Filtres:`, state.currentFilters);
@@ -144,6 +146,10 @@ function createRelaisCard(relaisData, targetContainer, favoritedIds) {
         if (!fallbackGrid) { console.error(`CRITIQUE: createRelaisCard n'a ni cible ni fallback pour ${relaisData?.id}.`); return; }
         targetContainer = fallbackGrid;
         console.warn(`createRelaisCard: Cible invalide, fallback sur grille accueil pour ${relaisData?.id}.`);
+    }
+    if (state.loadedIds.has(relaisData.id)) {
+        console.warn(`Carte déjà chargée pour ${relaisData.id}, saut.`);
+        return;
     }
     if (targetContainer.querySelector(`article[data-id="${relaisData.id}"]`)) {
         console.warn(`Carte déjà présente pour ${relaisData.id}, saut de création.`);
@@ -236,6 +242,7 @@ function createRelaisCard(relaisData, targetContainer, favoritedIds) {
         </div>
     `;
     targetContainer.appendChild(card);
+    state.loadedIds.add(relaisData.id);
 }
 
 // --- Export des fonctions nécessaires ---
