@@ -29,8 +29,8 @@ function updateUIForLoggedInUser(user) {
 // Met à jour l'UI du header pour un utilisateur déconnecté
 function updateUIForLoggedOutUser() {
     if (!authContainer) return;
-    authContainer.innerHTML = `<button id="google-signin-button" class="btn btn-primary">Connexion avec Google</button>`;
-    const googleSignInButton = document.getElementById('google-signin-button');
+    authContainer.innerHTML = `<button id="google-signin-button-header" class="btn btn-primary">Connexion avec Google</button>`;
+    const googleSignInButton = document.getElementById('google-signin-button-header');
     if (googleSignInButton) {
         googleSignInButton.addEventListener('click', signInWithGoogle); // Appel de la fonction importée
     }
@@ -38,7 +38,7 @@ function updateUIForLoggedOutUser() {
 
 // Attache l'écouteur initial (utile si l'utilisateur n'est pas connecté au chargement initial)
 function setupInitialAuthButton() {
-    const initialGoogleButton = document.getElementById('google-signin-button');
+    const initialGoogleButton = document.querySelector('#google-signin-button-login, #google-signin-button-header');
      // Attache seulement s'il existe ET si currentUser (importé depuis app.js ou passé en arg) est null.
      // Pour simplifier, on suppose ici que app.js gérera cet état initial.
      // OU on pourrait juste s'assurer que updateUIForLoggedOutUser le refait toujours.
