@@ -1,0 +1,3 @@
+# Node or environment-specific files
+config/firebase-config.js
+.env
