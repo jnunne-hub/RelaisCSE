@@ -54,7 +54,6 @@ function showLoginScreen(message = "") {
     document.getElementById('loginScreen').style.display = 'flex';
     document.querySelector('main').style.display = 'none';
     document.querySelector('header').style.display = 'none';
-    document.querySelector('footer').style.display = 'none';
     const err = document.getElementById('login-error');
     if (err) {
         err.style.display = message ? 'block' : 'none';
